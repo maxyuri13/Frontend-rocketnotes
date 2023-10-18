@@ -14,21 +14,21 @@ export function Home() {
       </Brand>
       <Header/>
       <Menu>
-        <li><ButtonText title="Todos" isActive/></li>
+        <li><ButtonText title="Everyone" isActive/></li>
         <li><ButtonText title="React"/></li>
         <li><ButtonText title="NodeJs"/></li>
       </Menu>
       <Search>
-        <Input placeholder="Pesquisar pelo título"/>
+        <Input placeholder="Search by title"/>
       </Search>
       <Content>
-        <Section title="Minhas Notas">
+        <Section title="My Notes">
           <Note data={{title: 'React Modal', tags: [
             {id: '1', name: 'React'},
           ]
           }}
           />
-          <Note data={{title: 'Exemplo de Middleware', tags: [
+          <Note data={{title: 'Example of Middleware', tags: [
             {id: '1', name: 'express'},
             {id: '2', name: 'nodejs'}
           ]
@@ -38,7 +38,7 @@ export function Home() {
       </Content>
       <NewNote>
         <FiPlus/>
-        Criar nota
+        Create note
       </NewNote>
     </Container>
   );
