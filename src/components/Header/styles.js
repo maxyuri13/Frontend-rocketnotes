@@ -31,12 +31,12 @@ export const Profile = styled.div`
     
     span {
       font-size: 14px;
-      color: ${({ theme }) => theme.COLORS.GRAY_100}
+      color: ${({ theme }) => theme.COLORS.GRAY_100};
     }
 
     strong {
       font-size: 18px;
-      color: ${({ theme }) => theme.COLORS.WHITE}
+      color: ${({ theme }) => theme.COLORS.WHITE};
     }
   }
 `;

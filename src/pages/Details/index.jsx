@@ -12,6 +12,12 @@ export function Details(){
       <main>
         <Content>
           <ButtonText title="Delete note"/>
+            <h1>
+              Introduction to React
+            </h1>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis aperiam, aut recusandae cupiditate temporibus nam alias exercitationem! Amet aut dolor modi repellendus iste laboriosam, autem ipsa maxime, dolore temporibus velit?
+            </p>
           <Section title="Useful Links">
             <Links>
               <li><a href="#">https://www.rocketseat.com.br</a></li>
