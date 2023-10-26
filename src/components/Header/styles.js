@@ -1,5 +1,5 @@
 import styled from "styled-components";
-c
+import { Link } from 'react-router-dom';
 
 export const Container = styled.header`
   grid-area: header;
