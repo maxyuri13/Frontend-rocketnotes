@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { api } from '../../../Backend/src/services//api'
+import { api } from '../../../Backend/src/services//api';
 
 export const AuthContext = createContext({});
 
@@ -13,7 +13,7 @@ function AuthProvider({ children }) {
       localStorage.setItem("@rocketnotes:user", JSON.stringify(user));
       localStorage.setItem("@rocketnotes:token", token);
      
-      api.defaults.headers.authorization = `Bearer ${token}`;
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       setData({ user, token })
     } catch (error) {
       if(error.response){
@@ -25,10 +25,32 @@ function AuthProvider({ children }) {
   }
 
   function signOut(){
-    const token = localStorage.removeItem("@rocketnotes:token");
-    const user = localStorage.removeItem("@rocketnotes:user");
+    localStorage.removeItem("@rocketnotes:token");
+    localStorage.removeItem("@rocketnotes:user");
 
     setData({});
+  }
+
+  async function updateProfile({ user, avatarFile }){
+    try {
+      if(avatarFile){
+        const fileUploadForm = new FormData();
+        fileUploadForm.append("avatar", avatarFile);
+        const response = await api.patch("/users/avatar", fileUploadForm);
+        user.avatar =  response.data.avatar;
+      }
+      await api.put("/users", user)
+      localStorage.setItem("@rocketnotes:user", JSON.stringify(user));
+
+      setData({ user, token: data.token });
+      alert("Profile updated");
+    } catch (error) {
+      if(error.response){
+        alert(error.response.data.message);
+      }else{
+        alert("Unable to update the profile.");
+      }
+    } 
   }
 
   useEffect(() => {
@@ -36,7 +58,7 @@ function AuthProvider({ children }) {
     const user = localStorage.getItem("@rocketnotes:user");
 
     if(token && user) {
-      api.defaults.headers.authorization = `Bearer ${token}`;
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       setData({
         token,
         user: JSON.parse(user)
@@ -47,7 +69,8 @@ function AuthProvider({ children }) {
   return (
     <AuthContext.Provider value={{ 
       signIn,
-      signOut, 
+      signOut,
+      updateProfile, 
       user: data.user 
       }}
     >
