@@ -44,9 +44,9 @@ export function New() {
 
   async function handleNewNote(){
     if (!title) {
-      alert("Enter the title of the note.");
+      return alert("Enter the title of the note.");
     } else if (!description) {
-      alert("Enter the description of the note.");
+      return alert("Enter the description of the note.");
     }  
     if(newLink){
       return alert("You left a link in the field to add, but you didn't click 'Add. Click to add or leave the field empty.")
@@ -55,7 +55,7 @@ export function New() {
       return alert("You left a tag in the field to add, but you didn't click 'Add. Click to add or leave the field empty.");
     } 
     if (!newLink && !newTag) {
-      alert("Please add at least one Link or Tag!");
+      return alert("Please add at least one Link or Tag!");
     }
   
     await api.post("/notes", {
