@@ -1,7 +1,7 @@
 import { FiArrowLeft, FiUser, FiMail, FiLock, FiCamera } from 'react-icons/fi';
 import { useState } from 'react';
 import { useAuth } from '../../hooks/auth';
-import { api } from '../../../../Backend/src/services/api';
+import { api } from '../../services/api';
 import avatarPlaceholder from '../../assets/avatar_placeholder.svg';
 import { useNavigate } from "react-router-dom";
 import { Input } from '../../components/Input'
