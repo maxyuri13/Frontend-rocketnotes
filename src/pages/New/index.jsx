@@ -17,6 +17,7 @@ export function New() {
   const [newLink, setNewLink] = useState("");
   const [tags, setTags] = useState([]);
   const [newTag, setNewTag] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
 
   const navigate = useNavigate();
 
@@ -24,7 +25,10 @@ export function New() {
     navigate(-1);
   }
 
-  function handleAddLink(){
+  function handleAddLink() {
+    if (newLink.trim() === "" || links.includes(newLink)) {
+      return alert(newLink.trim() === "" ? "Enter a link before adding." : "This link already exists.");
+    }
     setLinks(prevState => [...prevState, newLink]);
     setNewLink("");
   }
@@ -33,7 +37,10 @@ export function New() {
     setLinks(prevState => prevState.filter(link => link !== deleted));
   }
 
-  function handleAddTag(){
+  function handleAddTag() {
+    if (newTag.trim() === "" || tags.includes(newTag)) {
+      return alert(newTag.trim() === "" ? "Enter a tag before adding." : "This tag already exists.");
+    }
     setTags(prevState => [...prevState, newTag]);
     setNewTag("");
   }
@@ -42,32 +49,32 @@ export function New() {
     setTags(prevState => prevState.filter(tag => tag !== deleted));
   }
 
-  async function handleNewNote(){
-    if (!title) {
-      return alert("Enter the title of the note.");
-    } else if (!description) {
-      return alert("Enter the description of the note.");
-    }  
-    if(newLink){
-      return alert("You left a link in the field to add, but you didn't click 'Add. Click to add or leave the field empty.")
+  async function handleNewNote() {
+    if (isSaving || !title || !description || links.length === 0 || tags.length === 0) {
+      return alert("Please fill out the form completely before saving.");
     }
-    if(newTag){
-      return alert("You left a tag in the field to add, but you didn't click 'Add. Click to add or leave the field empty.");
-    } 
-    if (!newLink && !newTag) {
-      return alert("Please add at least one Link or Tag!");
+
+    if (newLink.trim() !== "" || newTag.trim() !== "") {
+      return alert("Finish editing the new link and tag or clear the fields before saving.");
     }
   
-    await api.post("/notes", {
-      title,
-      description,
-      tags,
-      links
-    });
-    alert("Note created successfully!");
-    navigate(-1);
-  } 
-
+    setIsSaving(true);
+  
+    try {
+      await api.post("/notes", {
+        title,
+        description,
+        tags,
+        links
+      });
+      alert("Note created successfully!");
+      navigate(-1);
+    } catch (error) {
+      alert("Error saving the note. Please try again later.");
+    } finally {
+      setIsSaving(false);
+    }
+  }
   return (
     <Container>
       <Header />
@@ -129,6 +136,7 @@ export function New() {
           <Button 
             title="Save"
             onClick={handleNewNote}
+            disabled={isSaving}
           />
         </Form>
       </main>
