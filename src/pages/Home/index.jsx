@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { api } from '../../services/api';
+import { api } from '../../../../Backend/src/services/api';
 import { useNavigate } from 'react-router-dom';
 import { FiPlus } from 'react-icons/fi';
 import { Container, Brand, Menu, Search, Content, NewNote } from './styles';
