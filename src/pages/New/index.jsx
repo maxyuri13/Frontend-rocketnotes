@@ -51,14 +51,11 @@ export function New() {
     if(newLink){
       return alert("You left a link in the field to add, but you didn't click 'Add. Click to add or leave the field empty.")
     }
-    if(!newLink){
-      return alert("Please add at least one Link!")
-    }
     if(newTag){
       return alert("You left a tag in the field to add, but you didn't click 'Add. Click to add or leave the field empty.");
     } 
-    if(!newTag){
-      return alert("Please add at least one Tag!");
+    if (!newLink && !newTag) {
+      alert("Please add at least one Link or Tag!");
     }
   
     await api.post("/notes", {
