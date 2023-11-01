@@ -8,7 +8,7 @@ import { Section } from '../../components/Section'
 import { Button } from '../../components/Button'
 import { ButtonText } from "../../components/ButtonText";
 import { Container, Form } from './styles';
-import { api } from '../../../../Backend/src/services/api';
+import { api } from '../../services/api';
 
 export function New() {
   const [title, setTitle] = useState("");
