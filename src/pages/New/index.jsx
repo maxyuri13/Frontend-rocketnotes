@@ -47,12 +47,18 @@ export function New() {
       alert("Enter the title of the note.");
     } else if (!description) {
       alert("Enter the description of the note.");
-    } else if (newLink && !newLink.trim()) {
-      alert("You left a link in the field to add, but you didn't click 'Add. Click to add or leave the field empty.");
-    } else if (newTag && !newTag.trim()) {
-      alert("You left a tag in the field to add, but you didn't click 'Add. Click to add or leave the field empty.");
-    } else if (!newLink && !newTag) {
-      alert("Please add at least one Link or Tag!");
+    }  
+    if(newLink){
+      return alert("You left a link in the field to add, but you didn't click 'Add. Click to add or leave the field empty.")
+    }
+    if(!newLink){
+      return alert("Please add at least one Link!")
+    }
+    if(newTag){
+      return alert("You left a tag in the field to add, but you didn't click 'Add. Click to add or leave the field empty.");
+    } 
+    if(!newTag){
+      return alert("Please add at least one Tag!");
     }
   
     await api.post("/notes", {
